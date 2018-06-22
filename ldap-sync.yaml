@@ -1,0 +1,20 @@
+kind: LDAPSyncConfig
+apiVersion: v1
+url: ldap://ipa.shared.example.opentlc.com:389 
+insecure: true 
+rfc2307:
+    groupsQuery:
+        baseDN: "cn=groups,cn=accounts,dc=shared,dc=example,dc=opentlc,dc=com"
+        scope: sub
+        derefAliases: never
+        filter: (objectclass=groupOfNames)
+    groupUIDAttribute: dn 
+    groupNameAttributes: [ cn ] 
+    groupMembershipAttributes: [ member ] 
+    usersQuery:
+        baseDN: "cn=users,cn=accounts,dc=shared,dc=example,dc=opentlc,dc=com"
+        scope: sub
+        derefAliases: never
+        filter: (&(!(objectClass=mepManagedEntry))(!(cn=trust admins))(!(cn=groups))(!(cn=admins))(!(cn=ipausers))(!(cn=editors))(!(cn=ocp-users))(!(cn=evmgroup*))(!(cn=ipac*)))
+    userUIDAttribute: dn 
+    userNameAttributes: [ uid ]
